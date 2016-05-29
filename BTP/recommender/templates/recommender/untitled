@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}
+<h2> Search for Products</h2>
+{% endblock %}
+{% block content %}

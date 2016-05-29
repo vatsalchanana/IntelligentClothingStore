@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{%block title%}
+<h2>Latest Reviews</h2>
+{% endblock %}
+
+{%block content %}
+{% if review_list %}
+<div>
+    {% for review in review_list %}
+    <div class = "row-content">
+        <h4><a href="{% url 'recommender:review_detail' review.id %}">
+            {{review.product.name}}</a>
+        </h4>
+        <div class="media">
+                    <div class="media-left media-middle">
+                        
+                        <img class="media-object img-thumbnail"
+                         src="{{review.product.imURL }}" height = "200px" width = "200px">
+                        
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading">Rated {{review.rating}} of 5 by <a>{{review.reviewer_id}}</a></h5>
+                        <p><span class="stars" id=" star star-ratings" >{{review.rating}}</span></p>
+                        <p>{{review.review_text}}</p>
+                        
+                    </div>
+                </div>
+        
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No reviews available.</p>
+{% endif %}
+<script>
+    $(function() {
+    $('span.stars').stars();
+});
+</script>
+{% endblock %}
+

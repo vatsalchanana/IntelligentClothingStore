@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+<div align = "center">
+<h2 ><a href="{% url 'recommender:product_detail' review.product.asin %}">{{ review.product.name }}</h2>
+<img class="media-object img-thumbnail"
+                         src="{{review.product.imURL }}" height = "300px" width = "300px" align = "middle"></a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class = "row-header">
+<h4>Rated {{ review.rating }} of 5 by <a href="{% url 'recommender:user_review_list' review.user_name %}" >{{ review.reviewer_id }}</a></h4>
+<p><span class="stars" id=" star star-ratings" >{{review.rating}}</span></p>
+</div>
+<div class = "row-content">
+
+<p>{{ review.pub_date }}</p>
+<p>{{review.review_text}}</p>
+</div>
+
+<script>
+    $(function() {
+    $('span.stars').stars();
+});
+</script>
+    {% endblock %}

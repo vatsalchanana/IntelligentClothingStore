@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h2>Available Products</h2>
+{% endblock %}
+{% block content %}
+{% if product_list %}
+<div class="row">
+    {% for product in product_list %}
+    <div class="col-xs-6 col-lg-4">
+        <div class = "object">
+        <h4><a href="{% url 'recommender:product_detail' product.asin %}">
+        {{ product.name }}
+        </a></h4>
+         {% if product.review_set.count%}
+        <p><span class="stars" id="star-ratings"   title = "Rated {{ product.average_rating | floatformat }}" >{{ product.average_rating | floatformat }}</span>
+        {%endif%}
+        <h7>({{ product.review_set.count }} Reviews)</h7></p>
+        <a href="{% url 'recommender:product_detail' product.asin %}">
+        <img src = "{{product.imURL }}" height = "200" width = "200" class="img-circle" align = "left">
+        </a>
+        </div>
+        
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No products are currently available.</p>
+{% endif %}
+<script>
+    $(function() {
+    $('span.stars').stars();
+});
+
+</script>
+{% endblock %}

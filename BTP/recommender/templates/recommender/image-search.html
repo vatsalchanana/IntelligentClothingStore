@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}
+<h2> Search for Products using Images</h2>
+{% endblock %}
+{% block content %}
+
+<form action="{% url 'recommender:lists' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p>{{ form.non_field_errors }}</p>
+                        <p>{{ form.docfile.label_tag }} </p>
+                        <p>
+                                {{ form.docfile.errors }}
+                                {{ form.docfile }}
+                        </p>
+                        <p><button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-upload"
+                             aria-hidden="true"> </span> Upload</button></p>
+</form>
+<script type="text/javascript">
+ 		function onload() {
+           document.getElementById("image-search").className = "active";
+        }
+        window.onload = onload;
+</script>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %}
+<h2> Search for Products</h2>
+{% endblock %}
+{% block content %}
+<form method="GET" action=''>
+
+
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "search" %} Search
+    </button>
+    {% endbuttons %}
+	
+</form>
+{% endblock %}
+

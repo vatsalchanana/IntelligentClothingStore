@@ -1,0 +1,96 @@
+
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load ratings %}
+{% block title %}
+<div align ="center" class ="row-content">
+<h1 class= "heading">{{ product.name }}</h1>
+
+<img src = "{{product.imURL}}">
+
+<h3>{{product.review_set.count}} Reviews 
+    {%if product.review_set.count%}
+        (Average rating : {{ product.average_rating | floatformat }} )
+    {%endif%} </h3>    
+    
+</div>
+
+
+
+{% endblock %}
+{% ratings object %}
+
+{% block content %}
+<div class = "row-header">
+<h3>Similar Products</h3>
+</div>
+{% if product_list %}
+<div class="row">
+    {% for product in product_list %}
+    <div class="col-xs-6 col-lg-4">
+        <div class = "object">
+        <h4><a href="{% url 'recommender:product_detail' product.asin %}">
+        {{ product.name }}
+        </a></h4>
+         {% if product.review_set.count%}
+        <p><span class="stars" id="star-ratings"   title = "Rated {{ product.average_rating | floatformat }}" >{{ product.average_rating | floatformat }}</span>
+        {%endif%}
+        <h7>({{ product.review_set.count }} Reviews)</h7></p>
+        <a href="{% url 'recommender:product_detail' product.asin %}">
+        <img src = "{{product.imURL }}" height = "200" width = "200" class="img-rounded" align = "left">
+        </a>
+        </div>
+        
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No products are currently available.</p>
+{% endif %}
+
+<div class="row">
+<div class = "row-header">
+<h3>Recent reviews</h3>
+</div>
+<div class = "row-content"> 
+{% if product.review_set.all %}
+<div class="row">
+    <script></script>
+    {% for review in review_list %}
+    <div class="col-xs-4 col-lg-3">
+        <em>{{ review.comment }}</em>
+        <h7><p><span class = "stars"> {{ review.rating }}</span>by <b> {{review.reviewer_id}} </h5> </p></h7>
+        <h5><a href="{% url 'recommender:review_detail' review.id %}">
+        Read more
+        </a></h5>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No reviews for this product yet</p>
+{% endif %}
+</div>
+</div>
+<div class = "row-header">
+<h3>Add your review</h3>
+</div>
+<div class = "row-content"> 
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'recommender:add_review' product.asin %}" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "star" %} Add
+    </button>
+    {% endbuttons %}
+</form>
+</div>
+<script>
+    $(function() {
+    $('span.stars').stars();
+});
+</script>
+{% endblock %}
