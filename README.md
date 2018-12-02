@@ -9,8 +9,3 @@ This project aims to build a system to recommend products to a user in three way
 - If a user is currently viewing a product, the system must recommend products similar to the product he is currently viewing.
 - If there is a new user who hasn’t reviewed any products, the system should recommend something to him.
 - The system must make the predictions fast in a low time complexity. This is an effort to implement mathematical predictive models to improve user experience by making them personalised/relevant recommendations. We believe in enhanced user experience by taking feedback/rating from him. 
-
-Input to the system
-Initial requirement: Dataset Comprising Users, Products and Reviews / Preference / Likability specified / made by the user.
-We have also user details as well as product details for personalised/enhanced user experience.
-For working of model: Feedback of user based on the recommendations / product likability are registered/recorded as input. 
